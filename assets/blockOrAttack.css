@@ -1,0 +1,142 @@
+body{
+	background-color: #fff;
+}
+
+
+#scene-holder{
+	width: 100vw;
+	height: 100vh;
+	margin-right: auto;
+	margin-left: auto;
+	/*background-color: red;*/
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#background{
+	width: 100vw;
+	height: 60%;
+	background-color: rgba(0,0,255,0.9);
+	position: absolute;
+	top: 0;
+	z-index: -1;
+}
+#middleground{
+	width: 100vw;
+	height: 60%;
+	background-color: rgba(0,255,0,0.9);
+}
+#foreground{
+	width: 100vw;
+	height: 30%;
+	background-color: rgba(255,0,0,0.9);
+	position: absolute;
+	bottom: 0;
+}
+
+
+
+#game-holder{
+	/*max-width: 1024px;
+	min-height: 528px; */
+	opacity: .5;
+	width: 100vw;
+	height: 100vh;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: red;
+	position: relative;
+}
+
+
+
+#spectator-holder{
+	width: 90%;
+	height: 18vh;
+	background-color: blue;
+	margin-right: auto;
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.spectator{
+	width: 19vw;
+	height: 100%;
+	background-color: green;
+}
+.spectator:nth-child(n+2):nth-child(-n+4){
+	margin: 0 1vmin;
+}
+
+
+
+
+#main-display{
+	width: 100%;
+	height: 11vh;
+	background-color: rgba(0,0,255,0.5);
+	margin-right: auto;
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+}
+
+#p1-data,#p2-data{
+	width: 49%;
+	height: 100%;
+	background-color: rgba(0,255,0,0.3);
+}
+#p2-data{
+	margin-left: auto;
+}
+
+
+
+#battle-holder{
+	width: 100%;
+	height: 60vh;
+	background-color: green;
+	margin-right: auto;
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+}
+#p1-holder,#p2-holder{
+	width: 49%;
+	height: 100%;
+	background-color: blue;
+
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#p2-holder{
+	margin-left: auto;
+}
+.player-image{
+	width: 50%;
+	height: 50%;
+}
+
+
+#sub-display{
+	width: 100%;
+	height: 18vh;
+	background-color: green;
+	margin-right: auto;
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#sub-display-inner{
+	width: 80%;
+	height: 100%;
+	background-color: rgba(255,0,0,0.5);
+}
