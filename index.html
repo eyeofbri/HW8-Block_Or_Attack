@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Block OR Attack</title>
-
-	<link rel="stylesheet" type="text/css" href="./assets/reset.css">
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<link rel="stylesheet" type="text/css" href="./assets/blockOrAttack.css">
-
-	<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
-	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-	<script src="./assets/blockOrAttack.js"></script>
+    <title>Block OR Attack</title>
+    <link rel="stylesheet" type="text/css" href="./assets/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./assets/blockOrAttack.css">
+    <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="./assets/blockOrAttack.js"></script>
 </head>
+
 <body>
-
-	<div id=scene-holder>
-		<div id="background"></div>
-		<div id="middleground"></div>
-		<div id="foreground"></div>
-	</div>
-
-	<div id="game-holder">
-
-		<div id="spectator-holder">
-			<div class="spectator"></div>
-			<div class="spectator"></div>
-			<div class="spectator"></div>
-			<div class="spectator"></div>
-			<div class="spectator"></div>
-		</div>
-
-		<div id="main-display">
-			<div id="p1-data"></div>
-			<div id="p2-data"></div>
-		</div>
-
-		<div id="battle-holder">
-			<div id="p1-holder"></div>
-			<div id="p2-holder"></div>
-		</div>
-
-		<div id="sub-display">
-			<div id="sub-display-inner"></div>
-		</div>
-
-	</div>
+    <div id=scene-holder>
+        <div id="background"></div>
+        <div id="middleground"></div>
+        <div id="foreground"></div>
+    </div>
+    <div id="game-holder">
+        <div id="spectator-holder">
+            <div class="spectator"></div>
+            <div class="spectator"></div>
+            <div class="spectator"></div>
+            <div class="spectator"></div>
+            <div class="spectator"></div>
+        </div>
+        <div id="main-display">
+            <div id="p1-data">
+                
+            </div>
+            <div id="p2-data">
+            	
+            </div>
+        </div>
+        <div id="battle-holder">
+            <div id="p1-holder">
+            <div id="testing"></div>
+            <!-- These are inputs for Offense  actions-->
+            	<div>
+            		<!-- Submit button for StabbingLow -->
+                    <input type="submit" value="LowStab" name="stabLow">
+                    <!-- Submit button for StabbingHigh -->
+                    <input type="submit" value="HighStab" name="stabHigh">
+                    
+                </div>
+            </div>
+            <div id="p2-holder">
+            <!-- These are inputs for Defense  actions-->
+            	<div>
+            		<!-- Submit button for Ducking -->
+                    <input type="submit" value="Duck" name="duck">
+                    <!-- Submit button for Jumping -->
+                    <input type="submit" value="Jump" name="jump">
+                    
+                </div>
+            </div>
+        </div>
+        <div id="sub-display">
+            <div id="sub-display-inner"></div>
+        </div>
+    </div>
 </body>
+
 </html>
