@@ -35,24 +35,31 @@
             </div>
         </div>
         <div id="battle-holder">
-            <div id="p1-holder">
-            <div id="testing"></div>
+            <div id="p1-holder" name="player 1">
+            <!-- These are dislpays for player images-->
+                <div class="visual-holder">
+                    <div id="p1-visual" class="idle"></div>
+                </div>
             <!-- These are inputs for Offense  actions-->
             	<div>
-            		<!-- Submit button for StabbingLow -->
-                    <input type="submit" value="LowStab" name="stabLow">
-                    <!-- Submit button for StabbingHigh -->
-                    <input type="submit" value="HighStab" name="stabHigh">
+            		<!-- Submit button for Attacking Low -->
+                    <input type="submit" value="Low" name="attack_low">
+                    <!-- Submit button for Attacking High -->
+                    <input type="submit" value="High" name="attack_high">
                     
                 </div>
             </div>
-            <div id="p2-holder">
+            <div id="p2-holder" name="player 2">
+            <!-- These are dislpays for player images-->
+                <div class="visual-holder">
+                    <div id="p2-visual" class="idle"></div>
+                </div>
             <!-- These are inputs for Defense  actions-->
             	<div>
             		<!-- Submit button for Ducking -->
-                    <input type="submit" value="Duck" name="duck">
+                    <input type="submit" value="Duck" name="defend_low">
                     <!-- Submit button for Jumping -->
-                    <input type="submit" value="Jump" name="jump">
+                    <input type="submit" value="Jump" name="defend_high">
                     
                 </div>
             </div>
@@ -60,6 +67,7 @@
         <div id="sub-display">
             <div id="sub-display-inner"></div>
         </div>
+        <div id="testing"></div>
     </div>
 </body>
 

@@ -3,6 +3,23 @@ body{
 }
 
 
+#testing{
+	background-color: #000;
+	color: #fff;
+	position: fixed;
+	top: 5px;
+	left: 5px;
+	border-radius: 5px;
+	padding: 2px 4px;
+}
+#testing:before{
+	content: "Online:";
+	padding: 2px;
+}
+
+
+/*BACKGROUND SCENE*/
+/*FOR API ART*/
 #scene-holder{
 	width: 100vw;
 	height: 100vh;
@@ -26,35 +43,36 @@ body{
 #middleground{
 	width: 100vw;
 	height: 60%;
-	background-color: rgba(0,255,0,0.9);
+	background-color: rgba(100,100,100,0.9);
 }
 #foreground{
 	width: 100vw;
-	height: 30%;
-	background-color: rgba(255,0,0,0.9);
+	height: 40%;
+	background-color: rgba(50,50,50,0.9);
 	position: absolute;
 	bottom: 0;
 }
 
 
 
+
+
+
+
+/*MAIN GAME OBJECTS*/
 #game-holder{
-	/*max-width: 1024px;
-	min-height: 528px; */
-	opacity: .5;
+	opacity: 1;/*was .5*/
 	width: 100vw;
 	height: 100vh;
 	margin-right: auto;
 	margin-left: auto;
-	background-color: red;
+	/*background-color: red;*/
 	position: relative;
 }
 
-
-
 #spectator-holder{
 	width: 90%;
-	height: 18vh;
+	height: 16vh;
 	background-color: blue;
 	margin-right: auto;
 	margin-left: auto;
@@ -77,7 +95,7 @@ body{
 
 #main-display{
 	width: 100%;
-	height: 11vh;
+	height: 10vh;
 	background-color: rgba(0,0,255,0.5);
 	margin-right: auto;
 	margin-left: auto;
@@ -98,8 +116,8 @@ body{
 
 #battle-holder{
 	width: 100%;
-	height: 60vh;
-	background-color: green;
+	height: 58vh;
+	/*background-color: green;*/
 	margin-right: auto;
 	margin-left: auto;
 	display: flex;
@@ -108,25 +126,19 @@ body{
 #p1-holder,#p2-holder{
 	width: 49%;
 	height: 100%;
-	background-color: blue;
-
+	/*background-color: black;*/
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 #p2-holder{
 	margin-left: auto;
 }
-.player-image{
-	width: 50%;
-	height: 50%;
-}
-
 
 #sub-display{
 	width: 100%;
-	height: 18vh;
+	height: 16vh;
 	background-color: green;
 	margin-right: auto;
 	margin-left: auto;
@@ -139,4 +151,216 @@ body{
 	width: 80%;
 	height: 100%;
 	background-color: rgba(255,0,0,0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*PLAYER ANIMATION SYSTEM*/
+/*CONTAINERS*/
+.visual-holder{
+	width: calc(50vw - 10px);
+	max-width: calc(50vh - 10px);
+	height:  calc(40vw - 10px);
+	max-height: calc(40vh - 10px);
+	/*background-color: red;*/
+	/*border: 5px solid #000;*/
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#p1-visual, #p2-visual{
+	width: 105%;
+	height: 105%;
+	/*background-color: green;*/
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	transform: skewY(0) rotateX(0) translate(0);
+	background-image: url("./images/players/p1_idle.png");
+	filter: drop-shadow(0px 12px 5px rgba(0,0,0,0.5)) drop-shadow(0px 90px 25px rgba(0,0,0,0.5) );
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#p2-visual{
+	background-image: url("./images/players/p2_idle.png");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*PLAYER ANIMATION SYSTEM*/
+/*ANIMATIONS*/
+
+/*IDLE*/
+#p1-holder .idle{
+	/*background-image: url("./images/players/p1_idle.png") !important;*/
+	animation: idle_A 2s infinite;
+	animation-direction: alternate;
+}
+#p2-holder .idle{
+	/*background-image: url("./images/players/p2_idle.png") !important;*/
+	animation: idle_B 2s infinite;
+	animation-direction: alternate;
+	-webkit-animation-delay: .5s;
+    animation-delay: .5s;
+}
+@keyframes idle_A {
+  0% {	transform: skewY(2deg) rotateX(0) translate(0);
+  }
+  100% {transform: skewY(-2deg) rotateX(20deg) translate(0,6px);
+  }
+}
+@keyframes idle_B {
+  0% {	transform: skewY(-2deg) rotateX(0) translate(0);
+  }
+  100% {transform: skewY(2deg) rotateX(20deg) translate(0,6px);
+  }
+}
+
+/*ATTACK HIGH*/
+#p1-holder .attack-high{
+	animation: attack_high_A 2s forwards;
+	z-index: 1;
+}
+@keyframes attack_high_A {
+  90%{ margin-left: 99vw; }
+  91%{ margin-left: 100vw; }
+  92%{ margin-left: 98vw; }
+  100%{ margin-left: 0;  }
+}
+#p2-holder .attack-high{
+	animation: attack_high_B 2s forwards;
+	z-index: 1;
+}
+@keyframes attack_high_B {
+  90%{ margin-left: -99vw; }
+  91%{ margin-left: -100vw; }
+  92%{ margin-left: -98vw; }
+  100%{ margin-left: 0;  }
+}
+
+/*ATTACK LOW*/
+#p1-holder .attack-low{
+	animation: attack_low_A 2s forwards;
+}
+@keyframes attack_low_A {
+  90%{ margin-left: 99vw; }
+  100%{ margin-left: 0;  }
+}
+#p2-holder .attack-low{
+	animation: attack_low_B 2s forwards;
+}
+@keyframes attack_low_B {
+  90%{ margin-left: -99vw; }
+  100%{ margin-left: 0;  }
+}
+
+
+/*DEFEND HIGH*/
+.defend-high{
+	animation: defend_high 2s forwards;
+}
+#p1-holder .defend-high{
+	z-index: 1;
+}
+@keyframes defend_high {
+	0% {transform: rotateX(0);
+  	}
+  	90%{transform: translate(0,-8vh);
+  	}
+}
+
+.defend-low{
+	animation: defend_low 2s forwards;
+}
+#p1-holder .defend-low{
+	z-index: 2;
+}
+#p2-holder .defend-low{
+	z-index: 1;
+}
+@keyframes defend_low {
+	0% {transform: rotateX(0);
+  	}
+  	90%{transform: translate(0,2vh);
+  	}
+}
+
+
+
+
+
+
+
+
+/*BLOOD*/
+.blood-splatter-holder{
+	width: 8vw;
+	height: 5vw;
+	/*background-color: green;*/
+	animation: blood_splat 1s forwards;
+}
+@keyframes blood_splat {
+	50%{ 
+  		margin-top: -5vh; 
+  		transform: scale(1.2);
+  	}
+}
+.blood-drip{
+	position: relative;
+	width: 1vw;
+	max-width: 2vmin;
+	height: 1vw;
+	max-height: 2vmin;
+	background-color: red;
+	border-radius: 5px !important;
+	background-blend-mode: difference;
+	animation: blood_drip-anim 2s forwards;
+	outline: #800000 solid 1px;
+
+}
+@keyframes blood_drip-anim {
+  	100%{ 
+  		margin-top: 10vh; 
+  		opacity: 0; 
+  		width: 0px;
+  		height: 0px;
+  	}
+}
+
+
+
+
+/*SHAKE*/
+.shake {
+  -webkit-animation: shake_anim 0.5s;
+  animation: shake_anim 0.5s;
+}
+
+@keyframes shake_anim {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
 }
