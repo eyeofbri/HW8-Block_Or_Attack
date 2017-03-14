@@ -1,5 +1,5 @@
 body{
-	background-color: #fff;
+	background-color: #000;
 }
 
 
@@ -47,7 +47,7 @@ body{
 }
 #foreground{
 	width: 100vw;
-	height: 40%;
+	height: 50%;
 	background-color: rgba(50,50,50,0.9);
 	position: absolute;
 	bottom: 0;
@@ -61,41 +61,26 @@ body{
 
 /*MAIN GAME OBJECTS*/
 #game-holder{
-	opacity: 1;/*was .5*/
+	/*opacity: .5;*/
 	width: 100vw;
 	height: 100vh;
 	margin-right: auto;
 	margin-left: auto;
 	/*background-color: red;*/
 	position: relative;
+	/*overflow: hidden;*/
 }
 
-#spectator-holder{
-	width: 90%;
-	height: 16vh;
-	background-color: blue;
-	margin-right: auto;
-	margin-left: auto;
-	display: flex;
-	flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.spectator{
-	width: 19vw;
-	height: 100%;
-	background-color: green;
-}
-.spectator:nth-child(n+2):nth-child(-n+4){
-	margin: 0 1vmin;
-}
+
+
+
 
 
 
 
 #main-display{
 	width: 100%;
-	height: 10vh;
+	height: 16vh;
 	background-color: rgba(0,0,255,0.5);
 	margin-right: auto;
 	margin-left: auto;
@@ -114,8 +99,186 @@ body{
 
 
 
-#battle-holder{
+
+
+
+
+
+
+#spectator-holder{
+	width: 90vw;
+	max-width: calc(65vh - 10px);
+	height: 10vh;
+	background-color: red;
+	background-image: url("./images/bg-stone.jpg");
+	background-size: 20vh;
+	margin-right: auto;
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+    align-items: center bottom;
+    justify-content: center;
+
+    -webkit-border-top-left-radius: 2vmin;
+	-webkit-border-top-right-radius: 2vmin;
+	-moz-border-radius-topleft: 2vmin;
+	-moz-border-radius-topright: 2vmin;
+	border-top-left-radius: 2vmin;
+	border-top-right-radius: 2vmin;
+	border-top: 3px solid rgba(0,0,0,.7);
+
+	/*filter: blur(1px) contrast(1.2);*/
+}
+.spectator{
+	width: calc(12vh - 2px);
+	height: calc(12vh - 2px);
+	margin-top: 5vh;
+	background-image: url("./images/bg-stone.jpg");
+  	background-blend-mode: multiply;
+	background-size: 15vh;
+}
+#spectator-visual{
+	width:90%;
+	height: 90%;
+	background-color: rgba(0,0,0,0.7);
+	background-image: url("./images/spectators/spectator_idle.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	box-shadow: inset 0px 20px 20px 5px #000;
+	border-bottom: 3px solid rgba(0,0,0,.7);
+}
+
+
+
+.building-post{
+	width: 5vw;
+	height: 42vh;
+	background-color: #000;
+	background-image: url("./images/bg-stone.jpg");
+	background-size: 20vh;
+	position: relative;
+	filter: drop-shadow( 0px 10vh 15px rgba(0,0,0,0.3) ) ;
+}
+
+.building-post:nth-child(4){
+	-webkit-border-radius: 1vmin;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius: 1vmin;
+	-moz-border-radius-topright: 0;
+	border-radius: 1vmin;
+	border-top-right-radius: 0;
+	border-left: 3px solid rgba(0,0,0,.7);
+}
+.building-post:nth-child(10){
+	-webkit-border-radius: 1vmin;
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius: 1vmin;
+	-moz-border-radius-topleft: 0;
+	border-radius: 1vmin;
+	border-top-left-radius: 0;
+	border-right: 3px solid rgba(0,0,0,.7);
+}
+
+.building-front-upper{
+	width: 98vw;
+	max-width: calc(75vh - 10px);
+	margin-top: -3vh;
+	height: 5vh;
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+    align-items: center bottom;
+    justify-content: center;
+
+}
+.building-front-upper div{
 	width: 100%;
+	height: 100%;
+	background-color: #333;
+	background-image: url("./images/bg-stone.jpg");
+    background-size: 20vh;
+    -webkit-border-top-left-radius: 1vmin;
+	-webkit-border-top-right-radius: 1vmin;
+	-moz-border-radius-topleft: 1vmin;
+	-moz-border-radius-topright: 1vmin;
+	border-top-left-radius: 1vmin;
+	border-top-right-radius: 1vmin;
+	border-top: 3px solid rgba(0,0,0,.7);
+}
+.building-front-upper div:nth-child(n+1):nth-child(-n+3){
+	margin: 0 2vw;
+	border-left: 3px solid rgba(0,0,0,.7);
+	border-right: 3px solid rgba(0,0,0,.7);
+}
+
+.building-front-lower{
+	width: 90vw;
+	max-width: calc(60vh - 10px);
+	margin-top: 16.5vh;
+	height: 5vh;
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+    align-items: bottom;
+    background-image: url("./images/bg-stone.jpg");
+    background-size: 20vh;
+}
+
+.building-under{
+	width: 90vw;
+	max-width: calc(60vh - 10px);
+	margin-top: calc(20vh - 2px);
+	height: 6vh;
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+    align-items: bottom;
+    background-image: url("./images/bg-stone.jpg");
+    background-size: 15vh;
+    background-color: rgba(0,0,0,.7);
+  	background-blend-mode: multiply;
+  	-webkit-border-bottom-right-radius: 45%;
+	-webkit-border-bottom-left-radius: 45%;
+	-moz-border-radius-bottomright: 45%;
+	-moz-border-radius-bottomleft: 45%;
+	border-bottom-right-radius: 45%;
+	border-bottom-left-radius: 45%;
+	box-shadow: inset 0px 20px 20px 10px #000;
+}
+
+.building-under .building-post{
+	width: 4vw;
+	margin-left: 5vw;
+	height: 15vh;
+	margin-top: 3vh;
+	border-radius: 0;
+	background-image: url("./images/bg-stone.jpg");
+    background-size: 15vh;
+    background-color: rgba(0,0,0,.7);
+  	background-blend-mode: multiply;
+  	border-left: 0;
+
+  	-webkit-border-bottom-right-radius: 1vmin;
+	-webkit-border-bottom-left-radius: 1vmin;
+	-moz-border-radius-bottomright: 1vmin;
+	-moz-border-radius-bottomleft: 1vmin;
+	border-bottom-right-radius: 1vmin;
+	border-bottom-left-radius: 1vmin;
+}
+.building-under .building-post:nth-child(2){
+	margin-left: auto;
+	margin-right: 5vw;
+}
+
+
+
+
+
+
+
+#battle-holder{
+	width: 95%;
 	height: 58vh;
 	/*background-color: green;*/
 	margin-right: auto;
@@ -183,6 +346,7 @@ body{
 	width: 105%;
 	height: 105%;
 	/*background-color: green;*/
+	overflow: hidden;
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-position: center bottom;
@@ -359,8 +523,21 @@ body{
 }
 
 @keyframes shake_anim {
-  10%, 90% { transform: translate3d(-1px, 0, 0); }
+	/*old shake*/
+/*	10%, 90% { transform: translate3d(-1px, 0, 0); }
   20%, 80% { transform: translate3d(2px, 0, 0); }
   30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-  40%, 60% { transform: translate3d(4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }*/
+
+  0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
 }

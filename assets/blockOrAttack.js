@@ -98,8 +98,29 @@ function battle(p1_choice, p2_choice, whosAttacking) {
         bloodSplat.append(blood);
       }
 
-      //also shake the hit defender's container
-      shakeThings("p"+defender+"-visual");
+      
+
+
+      //change hurt defender's image to show the pain!
+
+      //start by grabbing the current bg image...
+      //and turning it into something usable
+      var currentBG = $( "#p"+defender+"-visual" ).css('background-image').split("/");
+      currentBG = currentBG[currentBG.length-1].split(".")[0];
+      currentBG = currentBG.split("_")[1];
+      
+      var hurtType = "";
+      if(currentBG == "idle"){}
+      if(currentBG == "defend-high"){ hurtType = "-high";}
+      if(currentBG == "defend-low"){ hurtType = "-low";}
+
+      if(currentBG != "defend-high"){
+        //also shake the hurt defender's container
+        shakeThings("p"+defender+"-visual");
+      }
+
+      setImage($( "#p"+defender+"-visual" ) ,"p"+defender+"_hurt"+hurtType);
+      
 
       setTimeout(function(){ 
         bloodSplat.remove();
@@ -126,7 +147,7 @@ function animationController(whatToDo) {
     var direction = whatToDo_Split[1];
     var playerTrigger = whatToDo_Split[2];
 
-    console.alert(playerTrigger+" "+action+"s "+direction);
+    // console.alert(playerTrigger+" "+action+"s "+direction);
 
     var myVisual_link = $( "#p"+playerTrigger.slice(-1)+"-visual" );
 
@@ -179,6 +200,7 @@ function animationController(whatToDo) {
       myVisual_link.removeClass(myAnimation);
       myVisual_link.addClass("idle");
       setImage(myVisual_link,"p"+playerTrigger.slice(-1)+"_idle");
+
     }, 2005);
 
   }
@@ -268,6 +290,7 @@ function shakeThings(el) {
 function fakeBattle() {
   var timeKeeper = 1000;
 
+  // testing player 1 animations
   setTimeout(function(){ 
     battle("high","idle",1);
   }, (timeKeeper) );
@@ -288,7 +311,7 @@ function fakeBattle() {
     battle("low","low",1);
   }, (timeKeeper*20) );
 
-
+  // testing player 2 animations
   setTimeout(function(){ 
     battle("idle","high",2);
   }, (timeKeeper*24) );
@@ -310,7 +333,7 @@ function fakeBattle() {
   }, (timeKeeper*40) );
 
 
-
+  // repeat these tests
   setTimeout(function(){ 
     fakeBattle();
   }, (timeKeeper*44) );  
