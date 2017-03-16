@@ -1,53 +1,317 @@
-$(document).ready( function() {
+// $(document).ready( function() {
 
+//   fakeBattle();
+
+// 	// Initialize Firebase
+
+//   // aashish's firebase
+//   var config = {
+//     apiKey: "AIzaSyBdtaA3bHl492e6_YZ2Ath_asgO4aFEh7o",
+//     authDomain: "blockorattack.firebaseapp.com",
+//     databaseURL: "https://blockorattack.firebaseio.com",
+//     storageBucket: "blockorattack.appspot.com",
+//     messagingSenderId: "864358667731"
+//   };
+//   firebase.initializeApp(config);
+
+
+//   var database = firebase.database();
+
+//   var connectionsRef = database.ref("/connections");
+
+//   var connectedRef = database.ref(".info/connected");
+
+//   connectedRef.on("value", function(snap) {
+
+//   // If they are connected..
+//   if (snap.val()) {
+
+//     // Add user to the connections list.
+//     var con = connectionsRef.push(true);
+    
+//     // tryTo_AddPlayer(connectionsRef, con.key);
+   
+//     // Remove user from the connection list when they disconnect or close/leave the page
+//     con.onDisconnect().remove();
+//   }
+// });
+
+//   connectionsRef.on("value", function(snap) {
+//     var snapped = snap.val();
+//     // Display the viewer count in the html.
+//     // The number of online users is the number of children in the connections list.
+
+//   // snap.forEach(function(item) {
+//   //       var itemVal = item.val();
+//   //       console.log(itemVal);
+//   // });
+
+//   console.log(snapped );
+
+
+//   $("#testing").html(snap.numChildren());
+// });
+
+// 	$('input').on("click", function(){
+		
+// 		// console.log($('input').attr('name'));
+// 		var elem = $(this);
+// 		console.log(elem);
+// 		console.log(elem.attr('name'));
+// 	})
+
+// })
+
+
+
+
+
+
+//brian's firebase
+var config = {
+  apiKey: "AIzaSyC_gukjkFH0F_RFGbLeblRTeNw7eh0xCns",
+  authDomain: "hw8-block-or-attack-test.firebaseapp.com",
+  databaseURL: "https://hw8-block-or-attack-test.firebaseio.com",
+  storageBucket: "hw8-block-or-attack-test.appspot.com",
+  messagingSenderId: "233481803081"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var connectionsRef = database.ref("/connections");
+var connectedRef = database.ref(".info/connected");
+
+var databaseRef = database.ref();
+
+
+
+
+$(document).ready( function() {
   fakeBattle();
 
-	// Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBdtaA3bHl492e6_YZ2Ath_asgO4aFEh7o",
-    authDomain: "blockorattack.firebaseapp.com",
-    databaseURL: "https://blockorattack.firebaseio.com",
-    storageBucket: "blockorattack.appspot.com",
-    messagingSenderId: "864358667731"
-  };
-  firebase.initializeApp(config);
+  $("#joinGame-submit").on("click", function (event) {
+    event.preventDefault();
+    gameFunctions("try-to-join-game");
+  } );
 
-  var database = firebase.database();
+});
 
-  var connectionsRef = database.ref("/connections");
 
-  var connectedRef = database.ref(".info/connected");
+connectedRef.on("value", function(snap) {
 
-  connectedRef.on("value", function(snap) {
+  gameFunctions("try-show-JoinGame", snap);
+  
+});
 
-  // If they are connected..
-  if (snap.val()) {
 
-    // Add user to the connections list.
-    var con = connectionsRef.push(true);
+connectionsRef.on('child_removed', function(snap) {
+  var which = snap.val().status;
 
-    // Remove user from the connection list when they disconnect or close/leave the page
-    con.onDisconnect().remove();
+  //if player
+  if(which.split("")[0] == "p"){
+    databaseRef.child("game data").child("players").child(which).remove();
+
+    $("#"+which+"-data").find(".name").text( "finding player..." );
+    $("#"+which+"-data").find(".wins").text( 0 );
+    $("#"+which+"-data").find(".losses").text( 0 );
+  }
+  //if spectator
+  if(which.split("")[0] == "s"){
+    databaseRef.child("game data").child("spectators").child(which).remove();
   }
 });
 
-  connectionsRef.on("value", function(snap) {
+connectionsRef.on('child_changed', function(snap) {
+  //findout what we need to update..
+  //...by grabbing the snap val status
+  var which = snap.val().status;
+  //if player
+  if(which.split("")[0] == "p"){
+    $("#"+which+"-data").find(".name").text( snap.val().name );
+    $("#"+which+"-data").find(".wins").text( snap.val().wins );
+    $("#"+which+"-data").find(".losses").text( snap.val().losses );
+    $("#"+which+"-data").find(".health-inner").attr("width", snap.val().hp +"%");
+  }
+  //if spectator
+  if(which.split("")[0] == "s"){
+    //set image to idle
+    var imageUrl = "./assets/images/spectators/spectator_idle.png";
+    $("#"+which).css('background-image', 'url(' + imageUrl + ')');
+  }
 
-  // Display the viewer count in the html.
-  // The number of online users is the number of children in the connections list.
-  $("#testing").html(snap.numChildren());
 });
 
-	$('input').on("click", function(){
-		
-		// console.log($('input').attr('name'));
-		var elem = $(this);
-		console.log(elem);
-		console.log(elem.attr('name'));
-	})
 
-})
+function update_visualDisplay() {
+  // body...
+}
 
+function gameFunctions(whatToDo, snapshot) {
+  var whatToDo_Split = whatToDo.split("_");
+
+
+  if(whatToDo == "try-show-JoinGame"
+    //and we are connected..
+    && snapshot.val() ) {
+
+    //check to see if players exist
+    //specifically, we are checking to see...
+    //..if player 1 or 2 has a key linked to it
+    var gameData_P = snapshot.child("game data").child("players");
+    var maybe_Player1 = gameData_P.child("p1").child("key").val();
+    var maybe_Player2 = gameData_P.child("p1").child("key").val();
+
+    //check to see if the spectators exist
+    //specifically, we are checking to see...
+    //..if s1-5 has a key linked to it
+    var gameData_S = snapshot.child("game data").child("spectators");
+    var maybe_S1 = gameData_S.child("s1").child("key").val();
+    var maybe_S2 = gameData_S.child("s2").child("key").val();
+    var maybe_S3 = gameData_S.child("s3").child("key").val();
+    var maybe_S4 = gameData_S.child("s4").child("key").val();
+    var maybe_S5 = gameData_S.child("s5").child("key").val();
+
+
+    //if any of the vars come back null...
+    //...player spots are open...
+    //...show the joinGame div
+    if(!maybe_Player1 || !maybe_Player2
+      || !maybe_S1 || !maybe_S2 || !maybe_S3
+      || !maybe_S4 || !maybe_S5 ){
+    
+      $("#joinGame").removeClass("hide");
+    }
+
+    // f(!maybe_Player1 || !maybe_Player2
+    //       || !maybe_S1 || !maybe_S2 || !maybe_S3
+    //       || !maybe_S4 || !maybe_S5 ){
+      // if any of those are true...
+      //   grab its key...
+      // grab the data from the key
+      //LAST WORKING HERE!!!
+
+  }
+
+  if(whatToDo == "try-to-join-game"
+    //and the name input inst empty
+    && $("#joinGame-input").val().trim() != ""){
+
+      var playerName = capitalizeFirstLetter( $("#joinGame-input").val().trim() );
+
+      databaseRef.once("value", function(snap) {
+        snapshot = snap;
+        // console.log(snapshot);
+        //check to see if there are any open spots
+    
+        //check players
+        //specifically, we are checking to see...
+        //..if player 1 or 2 has a key linked to it
+        var gameData_P = snapshot.child("game data").child("players");
+        var maybe_Player1 = gameData_P.child("p1").child("key").val();
+        var maybe_Player2 = gameData_P.child("p2").child("key").val();
+
+        //check spectators
+        //specifically, we are checking to see...
+        //..if s1-5 has a key linked to it
+        var gameData_S = snapshot.child("game data").child("spectators");
+        var maybe_S1 = gameData_S.child("s1").child("key").val();
+        var maybe_S2 = gameData_S.child("s2").child("key").val();
+        var maybe_S3 = gameData_S.child("s3").child("key").val();
+        var maybe_S4 = gameData_S.child("s4").child("key").val();
+        var maybe_S5 = gameData_S.child("s5").child("key").val();
+
+        //if any of the vars come back null...
+        //...spots are open...
+        if(!maybe_Player1 || !maybe_Player2
+          || !maybe_S1 || !maybe_S2 || !maybe_S3
+          || !maybe_S4 || !maybe_S5 ){
+
+          //determine the first open spot
+          var first_spot = "";
+          //..using a loop and array of all possible choices
+          var possible_spots =  [ 
+            [maybe_Player1 , "p1"], 
+            [maybe_Player2 , "p2"],
+            [maybe_S1 , "s1"],
+            [maybe_S2 , "s2"],
+            [maybe_S3 , "s3"],
+            [maybe_S4 , "s4"],
+            [maybe_S5 , "s5"] ];
+          for (var i = 0; i < possible_spots.length; i++) {
+            if(!possible_spots[i][0]){
+              //...this computer is now THAT spot
+              first_spot = possible_spots[i][1];
+              break;
+            }
+          }
+          //if / when first spot is assigned...
+          if(first_spot){
+            // Add user to the connections list.
+            var con = connectionsRef.push(true);
+            connectionsRef.child(con.key).update({
+                key: con.key,
+                name: playerName,
+                status: first_spot,
+                wins: 0,
+                losses: 0,
+                hp: 100
+            });
+
+            // Remove user from the connection list when they disconnect or close/leave the page
+            con.onDisconnect().remove();
+
+            // ..Update the game data..
+            // ..to reflect this newly joined computer...
+            // ...and to stop further log ins as the same spot
+
+            //for players
+            if(first_spot.split("")[0] == "p"){
+              var newPlayer = {};
+              newPlayer[first_spot] = "test"; //test is the property
+              databaseRef.child("game data").child("players").update(newPlayer);
+
+              //this pushes data into new thing
+              databaseRef.child("game data").child("players").child(first_spot).update({
+                  key: con.key
+              });
+            }
+
+            //for spectators
+            if(first_spot.split("")[0] == "s"){
+              var newSpectator = {};
+              newSpectator[first_spot] = "test"; //test is the property
+              databaseRef.child("game data").child("spectators").update(newSpectator);
+
+              //this pushes data into new thing
+              databaseRef.child("game data").child("spectators").child(first_spot).update({
+                  key: con.key,
+                  status: "idle"
+              });
+            }
+
+            //empty and hide join input
+            $("#joinGame-input").val("");
+            $("#joinGame").addClass("hide");
+
+            //modal display that says...
+            //..."welcome to the game, ____"
+            //...blank var would be based on converting first_spot...
+            //...from p# to player #
+            //..and from s# to spectator #
+          }
+
+        }else{
+          //modal display that says..
+          //.."sorry, the server is full...
+          //..."try again soon :D "...
+        }
+
+      });
+
+  }
+
+}
 
 
 
@@ -99,8 +363,6 @@ function battle(p1_choice, p2_choice, whosAttacking) {
       }
 
       
-
-
       //change hurt defender's image to show the pain!
 
       //start by grabbing the current bg image...
@@ -231,6 +493,82 @@ function returnWinner(p1_choice, p2_choice, whosAttacking) {
   return winner;
 }
 
+function spawnActionInputs(which,where) {
+
+  if(which == "attack"){
+    var input_holder = $("<div>");
+
+    var label = $("<label>");
+    label.text("Choose Your Attack");
+    input_holder.append(label);
+
+    var choices_holder = $("<div>");
+    input_holder.append(choices_holder);
+
+    var attack_low = $("input");
+    attack_low.attr("type", "submit");
+    attack_low.attr("value", "Low");
+    attack_low.attr("name", "attack_low");
+    choices_holder.append(attack_low);
+
+    var attack_high = $("input");
+    attack_high.attr("type", "submit");
+    attack_high.attr("value", "High");
+    attack_high.attr("name", "attack_high");
+    choices_holder.append(attack_high);
+
+    $(where).append(input_holder);
+  }
+
+  if(which == "defend"){
+    var input_holder = $("<div>");
+
+    var label = $("<label>");
+    label.text("Choose Your Defense");
+    input_holder.append(label);
+
+    var choices_holder = $("<div>");
+    input_holder.append(choices_holder);
+
+    var defend_low = $("input");
+    defend_low.attr("type", "submit");
+    defend_low.attr("value", "Duck");
+    defend_low.attr("name", "defend_low");
+    choices_holder.append(defend_low);
+
+    var defend_high = $("input");
+    defend_high.attr("type", "submit");
+    defend_high.attr("value", "Jump");
+    defend_high.attr("name", "defend_high");
+    choices_holder.append(defend_high);
+
+    $(where).append(input_holder);
+  }
+
+}
+
+
+
+
+function spectatorCheer(playerKey) {
+  //if the player Status...
+  //...located in the Key...
+  //..found through once and the playerKey...
+  //...====s1, s2, s3, s4,s5...
+  //..then the player is a spectator...
+  //...and now we know which one
+  var spectatorNumber = "s1"; 
+
+  //...using the spectator number..
+  //..go into That spectator...
+  //..inside of our Game Data "folder"...
+
+  //..if its status is set to "idle"
+  //...you can cheer...
+  //update its status to Active...
+  //the visual piece will be done
+
+}
 
 
 
@@ -243,6 +581,20 @@ function returnWinner(p1_choice, p2_choice, whosAttacking) {
 /*BEGIN */
 /*RE-USABLE JAVASCRIPT*/
 
+/*requires firebase*/
+function once(keyName) {
+  var sendBack;
+  firebase.database().ref().once("value", function(snapshot) {
+    snapshot.forEach(function(itemSnapshot) {
+      if(itemSnapshot.key == keyName){
+        sendBack = itemSnapshot;
+      }
+    });
+  });
+  return sendBack;
+}
+  
+
 //This function lets us style the console.log
 console.alert = function( msg){
   console.log( '%c %s %s %s ', 'color: #333; background-color: #ccc;', '*', msg, '*');
@@ -250,6 +602,10 @@ console.alert = function( msg){
 //This function lets us style the console.log
 console.important = function( msg){
   console.log( '%c%s %s %s', 'color: white; font-weight: bold; background-color: rgba(0,100,50,1)', '! ', msg, ' !');
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function getRandomIntInclusive(min, max) {
@@ -269,6 +625,7 @@ function shakeThings(el) {
   thingToShake.classList.add("shake");
   setTimeout(function(){ elClasses.remove("shake"); }, 500);
 }
+
 
 /*END */
 /*RE-USABLE JAVASCRIPT*/
