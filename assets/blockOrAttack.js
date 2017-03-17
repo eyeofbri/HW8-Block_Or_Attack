@@ -155,41 +155,124 @@ function gameFunctions(whatToDo, snapshot) {
     //and we are connected..
     && snapshot.val() ) {
 
-    //check to see if players exist
-    //specifically, we are checking to see...
-    //..if player 1 or 2 has a key linked to it
-    var gameData_P = snapshot.child("game data").child("players");
-    var maybe_Player1 = gameData_P.child("p1").child("key").val();
-    var maybe_Player2 = gameData_P.child("p1").child("key").val();
+    databaseRef.once("value", function(snap) {
 
-    //check to see if the spectators exist
-    //specifically, we are checking to see...
-    //..if s1-5 has a key linked to it
-    var gameData_S = snapshot.child("game data").child("spectators");
-    var maybe_S1 = gameData_S.child("s1").child("key").val();
-    var maybe_S2 = gameData_S.child("s2").child("key").val();
-    var maybe_S3 = gameData_S.child("s3").child("key").val();
-    var maybe_S4 = gameData_S.child("s4").child("key").val();
-    var maybe_S5 = gameData_S.child("s5").child("key").val();
+          //check to see if players exist
+          //specifically, we are checking to see...
+          //..if player 1 or 2 has a key linked to it
+          var gameData_P = snap.child("game data").child("players");
+          var maybe_Player1 = gameData_P.child("p1").child("key").val();
+
+          var maybe_Player2 = gameData_P.child("p2").child("key").val();
+
+          //check spectators
+          //specifically, we are checking to see...
+          //..if s1-5 has a key linked to it
+          var gameData_S = snap.child("game data").child("spectators");
+          var maybe_S1 = gameData_S.child("s1").child("key").val();
+          var maybe_S2 = gameData_S.child("s2").child("key").val();
+          var maybe_S3 = gameData_S.child("s3").child("key").val();
+          var maybe_S4 = gameData_S.child("s4").child("key").val();
+          var maybe_S5 = gameData_S.child("s5").child("key").val();
+          // var maybe_S5 = gameData_S.child("s5").key;
 
 
-    //if any of the vars come back null...
-    //...player spots are open...
-    //...show the joinGame div
-    if(!maybe_Player1 || !maybe_Player2
-      || !maybe_S1 || !maybe_S2 || !maybe_S3
-      || !maybe_S4 || !maybe_S5 ){
-    
-      $("#joinGame").removeClass("hide");
-    }
+          //if any of the vars come back null...
+          //...player spots are open...
+          //...show the joinGame div
+          if(!maybe_Player1 || !maybe_Player2
+            || !maybe_S1 || !maybe_S2 || !maybe_S3
+            || !maybe_S4 || !maybe_S5 ){
+          
+            $("#joinGame").removeClass("hide");
+          }
+          
+          // if any of those are true...
+          //...there are preexisitng players or spectactors...
+          ///...show them....
 
-    // f(!maybe_Player1 || !maybe_Player2
-    //       || !maybe_S1 || !maybe_S2 || !maybe_S3
-    //       || !maybe_S4 || !maybe_S5 ){
-      // if any of those are true...
-      //   grab its key...
-      // grab the data from the key
-      //LAST WORKING HERE!!!
+          if(maybe_Player1){
+               //take the key that is maybe_player1
+               //plug it into the connections..fill in the vars
+              connectionsRef.once("value", function(snap2) {
+                  var name = snap2.child(maybe_Player1).child("name").val();
+                  var wins = snap2.child(maybe_Player1).child("wins").val();
+                  var losses = snap2.child(maybe_Player1).child("name").val();
+                  var hp = snap2.child(maybe_Player1).child("hp").val();
+
+                  $("#p1-data").find(".name").text( name );
+                  $("#p1-data").find(".wins").text( wins );
+                  $("#p1-data").find(".losses").text( losses );
+                  $("#p1-data").find(".health-inner").attr("width", hp+"%");
+              });
+          }
+          if(maybe_Player2){
+               //take the key that is maybe_player1
+               //plug it into the connections..fill in the vars
+              connectionsRef.once("value", function(snap2) {
+                  var name = snap2.child(maybe_Player2).child("name").val();
+                  var wins = snap2.child(maybe_Player2).child("wins").val();
+                  var losses = snap2.child(maybe_Player2).child("name").val();
+                  var hp = snap2.child(maybe_Player2).child("hp").val();
+
+                  $("#p2-data").find(".name").text( name );
+                  $("#p2-data").find(".wins").text( wins );
+                  $("#p2-data").find(".losses").text( losses );
+                  $("#p2-data").find(".health-inner").attr("width", hp+"%");
+              });
+          }
+          if(maybe_S1){
+            //take the key that is maybe_player1
+            //plug it into the connections..fill in the vars
+            // var gameData_S = snap.child("game data").child("spectators");
+            status = gameData_S.child("s1").child("status").val();
+            if(status){
+              var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
+              $("#s1").css('background-image', 'url(' + imageUrl + ')');
+            }
+          }
+          if(maybe_S2){
+            //take the key that is maybe_player1
+            //plug it into the connections..fill in the vars
+            // var gameData_S = snap.child("game data").child("spectators");
+            status = gameData_S.child("s2").child("status").val();
+            if(status){
+              var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
+              $("#s2").css('background-image', 'url(' + imageUrl + ')');
+            }
+          }
+          if(maybe_S3){
+            //take the key that is maybe_player1
+            //plug it into the connections..fill in the vars
+            // var gameData_S = snap.child("game data").child("spectators");
+            status = gameData_S.child("s3").child("status").val();
+            if(status){
+              var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
+              $("#s3").css('background-image', 'url(' + imageUrl + ')');
+            }
+          }
+          if(maybe_S4){
+            //take the key that is maybe_player1
+            //plug it into the connections..fill in the vars
+            // var gameData_S = snap.child("game data").child("spectators");
+            status = gameData_S.child("s4").child("status").val();
+            if(status){
+              var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
+              $("#s4").css('background-image', 'url(' + imageUrl + ')');
+            }
+          }
+          if(maybe_S5){
+            //take the key that is maybe_player1
+            //plug it into the connections..fill in the vars
+            // var gameData_S = snap.child("game data").child("spectators");
+            status = gameData_S.child("s5").child("status").val();
+            if(status){
+              var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
+              $("#s5").css('background-image', 'url(' + imageUrl + ')');
+            }
+          }
+    }); 
+
 
   }
 
