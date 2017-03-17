@@ -87,8 +87,57 @@ var databaseRef = database.ref();
 
 
 
+
+function spotifyBg() {
+
+
+//Getting URL with the Spotify ID URI..... 
+var differentId = ["0nRE61yZyAJyWpyhmc3gKV", "1pjinuetX7Epcn2X8ydywU", "6nVC9OIVZHAal8gsZMJftr",
+"5dTHtzHFPyi8TlTtzoz1J9", "3K4HG9evC7dg3N0R9cYqk4", "5r88wg6oqQGhzykOAkq9zH"];
+var randomNum = Math.floor(Math.random() * differentId.length);
+console.log("random Num is: " + randomNum);
+
+console.log("spotifyID is: " + differentId[randomNum]);
+
+var randomSong = differentId[randomNum];  
+var queryURL = "https://api.spotify.com/v1/tracks/" + randomSong;
+      
+
+      $.ajax({
+              url: queryURL,
+              method: "GET"
+          })
+          .done(function(response) {
+            console.log("Response from the server Below: ");
+            console.log(response.preview_url);
+
+            var preview = response.preview_url;
+              
+            var iframe = document.createElement('iframe' );
+            document.body.appendChild(iframe);
+
+            var audioObject = new Audio(preview);
+            audioObject.play();
+            iframe.appendChild(audioObject);
+
+            
+              
+          });
+}
+
+
+
+
+
+
+
+
 $(document).ready( function() {
   fakeBattle();
+  
+  spotifyBg();
+  setInterval(spotifyBg, 30000);
+
 
   $("#joinGame-submit").on("click", function (event) {
     event.preventDefault();
