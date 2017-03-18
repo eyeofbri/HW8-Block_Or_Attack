@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Block OR Attack</title>
+    <title>Attack OR Defend</title>
     <link rel="stylesheet" type="text/css" href="./assets/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
@@ -10,6 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="./assets/blockOrAttack.js"></script>
 </head>
 
@@ -26,28 +27,31 @@
             <div id="p1-data">
 
                 <div class="health-outer">
-                    <div class="health-inner">&#160;</div>
+                    <div class="health-inner" id="hp1">&#160;</div>
                 </div>
 
-                <div class="name">finding player...</div>
+                <div class="name">No player...</div>
                 <div class="stats">
+                    <div class="score">0</div>
                     <div class="wins">0</div>
                     <div class="losses">0</div>
                 </div>
             </div>
             <div id="p2-data">
-                <div class="name">finding player...</div>
+                <div class="name">No player...</div>
 
                 <div class="health-outer">
-                    <div class="health-inner">&#160;</div>
+                    <div class="health-inner" id="hp2">&#160;</div>
                 </div>
 
                 <div class="stats">
-                    <div class="wins">0</div>
                     <div class="losses">0</div>
+                    <div class="wins">0</div>
+                    <div class="score">0</div>                    
                 </div>
             </div>
         </div>
+
 
         <div id="spectator-holder">
 
@@ -87,7 +91,7 @@
             <div id="p1-holder" name="player 1">
             <!-- These are dislpays for player images-->
                 <div class="visual-holder">
-                    <div id="p1-visual" class="idle"></div>
+                    <div id="p1-visual" class="idle hide"></div>
                 </div>
             <!-- These are inputs for Offense  actions-->
             	
@@ -95,7 +99,7 @@
             <div id="p2-holder" name="player 2">
             <!-- These are dislpays for player images-->
                 <div class="visual-holder">
-                    <div id="p2-visual" class="idle"></div>
+                    <div id="p2-visual" class="idle hide"></div>
                 </div>
             <!-- These are inputs for Defense  actions-->
             	
@@ -103,13 +107,40 @@
         </div>
         <div id="sub-display">
             <div id="sub-display-inner">
-                <div id="joinGame" class="hide">
-                    <input type="text" id="joinGame-input" placeholder="Name">
-                    <input id="joinGame-submit" type="submit" value="Join Game">
-                </div>
+                <form>
+                    <div id="joinGame" class="hide">
+                        <input type="text" id="joinGame-input" placeholder="Name">
+                        <input id="joinGame-submit" type="submit" value="Join Game" data-toggle="modal" data-target="#myModal">
+                    </div>
+                </form>
             </div>
         </div>
         <div id="testing"></div>
+        <button id="sound">on</button>
+    </div>
+
+     <!-- MODAL AREA   -->
+    <div class="modal fade" id="myModal" role="document" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Attack or Defend</h4>
+                </div>
+                <!-- closes modal-header -->
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <!-- closes modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                <!-- closes modal-footer -->
+            </div>
+    <!-- closes modal-content -->
     </div>
 </body>
 
