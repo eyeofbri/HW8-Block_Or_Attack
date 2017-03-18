@@ -36,7 +36,6 @@ var musicInterval = "";
 
 function spotifyBg() {
 
-  musicInterval = setInterval(spotifyBg, 30000);
 
   //Getting URL with the Spotify ID URI..... 
   var differentId = ["0nRE61yZyAJyWpyhmc3gKV", "1pjinuetX7Epcn2X8ydywU", "6nVC9OIVZHAal8gsZMJftr",
@@ -95,7 +94,9 @@ function NasaBG() {
 
 $(document).ready( function() {
   // fakeBattle();
+
   spotifyBg();
+  musicInterval = setInterval(spotifyBg, 30000);
 
   NasaBG();
 
@@ -127,6 +128,7 @@ $(document).ready( function() {
       $("#sound").text("off");
     }else{
       spotifyBg();
+      musicInterval = setInterval(spotifyBg, 30000);
       $("#sound").text("on");
     }
   } );
