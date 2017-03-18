@@ -35,7 +35,7 @@ var myKey = "";
 var musicInterval = "";
 
 function spotifyBg() {
-
+  $("#soundHolder").remove();
 
   //Getting URL with the Spotify ID URI..... 
   var differentId = ["0nRE61yZyAJyWpyhmc3gKV", "1pjinuetX7Epcn2X8ydywU", "6nVC9OIVZHAal8gsZMJftr",
