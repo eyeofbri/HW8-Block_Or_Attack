@@ -53,16 +53,21 @@ body{
 #background{
 	width: 100vw;
 	height: 60%;
-	background-color: rgba(164,206,238,1);
+	/*background-color: rgba(164,206,238,1);*/
+	background-color: black;
 	position: absolute;
 	top: 0;
+	left: 0;
 	z-index: -1;
-	background-size: contain;
+	background-size: cover;
+    background-repeat: no-repeat;
 }
 #middleground{
 	display: none;
 	width: 100vw;
 	height: 60%;
+	left: 0;
+	top: 0;
 	background-color: rgba(100,100,100,0.9);
 }
 #foreground{
@@ -70,6 +75,7 @@ body{
 	height: 50%;
 	position: absolute;
 	bottom: 0;
+	left: 0;
 	background:url(
 		data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAeElEQVQoU02PsQ2EMBAEx2U8bUB0JZyo40sghfhK+DqQSyCiDtrgtQhbF1qe3dkrwOhhJ0Bdjg34edj1vikedtflmIDZwwQIHIDLwzqgjz01iRvUVIA1JdV0KtmaBHyyE5jyprahO99k39SA7kzXPJukuLMT+OZNf2n7TAerCdtTAAAAAElFTkSuQmCC
     ) repeat;
@@ -305,8 +311,10 @@ body{
 }
 
 .building-front-upper{
-	width: 98vw;
-	max-width: calc(75vh - 10px);
+	/*width: 98vw;*/
+	/*max-width: calc(75vh - 10px);*/
+	width: 90vw;
+	max-width: calc(65vh - 10px);
 	margin-top: -3vh;
 	height: 5vh;
 	position: absolute;
@@ -314,7 +322,9 @@ body{
 	flex-direction: row;
     align-items: center bottom;
     justify-content: center;
-
+    /*margin-left: -5vw;*/
+    /*margin-right: auto;*/
+    /*background-color: grey;*/
 }
 .building-front-upper div{
 	width: 100%;
@@ -333,7 +343,7 @@ body{
 
 .building-front-lower{
 	width: 90vw;
-	max-width: calc(60vh - 10px);
+	max-width: calc(65vh - 10px);
 	margin-top: 16.5vh;
 	height: 5vh;
 	position: absolute;
@@ -346,7 +356,7 @@ body{
 
 .building-under{
 	width: 90vw;
-	max-width: calc(60vh - 10px);
+	max-width: calc(65vh - 10px);
 	margin-top: calc(20vh - 2px);
 	height: 6vh;
 	position: absolute;
@@ -505,6 +515,8 @@ body{
 	max-width: calc(50vh - 10px);
 	height:  calc(40vw - 10px);
 	max-height: calc(40vh - 10px);
+	min-width: 50px;
+	min-height: 50px;
 	/*background-color: red;*/
 	/*border: 5px solid #000;*/
 	display: flex;
@@ -515,6 +527,8 @@ body{
 #p1-visual, #p2-visual{
 	width: 105%;
 	height: 105%;
+	min-width: 50px;
+	min-height: 50px;
 	/*background-color: green;*/
 	overflow: hidden;
 	background-size: 100%;

@@ -85,7 +85,7 @@ function NasaBG() {
     }).done(function(response) {
 
       var imageURL = response.url;        
-      $("#background").css('background-image', 'url(' + imageURL + ')');          
+      $("#background").css('background', 'url(' + imageURL + ')');          
   });
 
 }
@@ -95,8 +95,8 @@ function NasaBG() {
 $(document).ready( function() {
   // fakeBattle();
 
-  spotifyBg();
-  musicInterval = setInterval(spotifyBg, 30000);
+  // spotifyBg();
+  // musicInterval = setInterval(spotifyBg, 30000);
 
   NasaBG();
 
@@ -169,7 +169,7 @@ connectionsRef.on('child_removed', function(snap) {
       databaseRef.child("game data").child("spectators").child(which).remove();
 
       var imageUrl = "./assets/images/spectators/spectator_empty.png";
-      $("#"+which).css('background-image', 'url(' + imageUrl + ')');
+      $("#"+which).css('background', 'url(' + imageUrl + ')');
     }
   }
 });
@@ -201,7 +201,7 @@ connectionsRef.on('child_changed', function(snap) {
       var spectator_status = gameData_S.child(which).child("status").val();
 
       var imageUrl = "./assets/images/spectators/spectator_idle.png";
-      $("#"+which).css('background-image', 'url(' + imageUrl + ')');
+      $("#"+which).css('background', 'url(' + imageUrl + ')');
 
     });
 
@@ -218,7 +218,7 @@ connectionsRef.on('child_changed', function(snap) {
     //change losers image to skeleton
     //and add the KO class out
     var imageUrl = "./assets/images/players/"+whichPlayer+"_skeleton.png";
-    $( "#"+whichPlayer+"-visual" ).css('background-image', 'url(' + imageUrl + ')');
+    $( "#"+whichPlayer+"-visual" ).css('background', 'url(' + imageUrl + ')');
     $( "#"+whichPlayer+"-visual" ).addClass("KO").removeClass("idle");  
 
     // //GIVE OTHER (winner) PLAYER +1 score
@@ -257,7 +257,7 @@ connectionsRef.on('child_changed', function(snap) {
     setTimeout(function(){ 
       $( "#"+whichPlayer+"-visual" ).removeClass("KO").addClass("hide"); 
       var imageUrl = "./assets/images/players/"+whichPlayer+"_idle.png";
-      $( "#"+whichPlayer+"-visual" ).css('background-image', 'url(' + imageUrl + ')'); 
+      $( "#"+whichPlayer+"-visual" ).css('background', 'url(' + imageUrl + ')'); 
     
         //remove player,by removing key too
         connectionsRef.child(snap.val().key).remove();
@@ -325,7 +325,7 @@ specs.on("child_changed", function(snap) {
       connectionsRef.once("value", function(snap2) {
         var where = snap2.child(whichKEY).child("status").val();
         var imageUrl = "./assets/images/spectators/spectator_"+whichIMG+".png";
-        $("#"+where).css('background-image', 'url(' + imageUrl + ')');
+        $("#"+where).css('background', 'url(' + imageUrl + ')');
 
         //time out and then back to idle
         setTimeout(function(){ 
@@ -507,7 +507,7 @@ function gameFunctions(whatToDo, snapshot) {
             status = gameData_S.child("s1").child("status").val();
             if(status){
               var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
-              $("#s1").css('background-image', 'url(' + imageUrl + ')');
+              $("#s1").css('background', 'url(' + imageUrl + ')');
             }
           }
           if(maybe_S2){
@@ -517,7 +517,7 @@ function gameFunctions(whatToDo, snapshot) {
             status = gameData_S.child("s2").child("status").val();
             if(status){
               var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
-              $("#s2").css('background-image', 'url(' + imageUrl + ')');
+              $("#s2").css('background', 'url(' + imageUrl + ')');
             }
           }
           if(maybe_S3){
@@ -527,7 +527,7 @@ function gameFunctions(whatToDo, snapshot) {
             status = gameData_S.child("s3").child("status").val();
             if(status){
               var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
-              $("#s3").css('background-image', 'url(' + imageUrl + ')');
+              $("#s3").css('background', 'url(' + imageUrl + ')');
             }
           }
           if(maybe_S4){
@@ -537,7 +537,7 @@ function gameFunctions(whatToDo, snapshot) {
             status = gameData_S.child("s4").child("status").val();
             if(status){
               var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
-              $("#s4").css('background-image', 'url(' + imageUrl + ')');
+              $("#s4").css('background', 'url(' + imageUrl + ')');
             }
           }
           if(maybe_S5){
@@ -547,7 +547,7 @@ function gameFunctions(whatToDo, snapshot) {
             status = gameData_S.child("s5").child("status").val();
             if(status){
               var imageUrl = "./assets/images/spectators/spectator_"+status+".png";
-              $("#s5").css('background-image', 'url(' + imageUrl + ')');
+              $("#s5").css('background', 'url(' + imageUrl + ')');
             }
           }
     }); 
@@ -921,7 +921,7 @@ function battle(p1_choice, p2_choice, whosAttacking) {
 
       //start by grabbing the current bg image...
       //and turning it into something usable
-      var currentBG = $( "#p"+defender+"-visual" ).css('background-image').split("/");
+      var currentBG = $( "#p"+defender+"-visual" ).css('background').split("/");
       currentBG = currentBG[currentBG.length-1].split(".")[0];
       currentBG = currentBG.split("_")[1];
       
@@ -1128,7 +1128,7 @@ function animationController(whatToDo) {
 
 function setImage(element, imageName) {
   imageName = "./assets/images/players/"+imageName+".png";
-  element.css('background-image', 'url(" '+imageName+' ")');
+  element.css('background', 'url(" '+imageName+' ")');
 }
 
 
